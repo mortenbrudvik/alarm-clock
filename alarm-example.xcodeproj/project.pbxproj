@@ -11,7 +11,6 @@
 		16F85E6520D9AB55004FFDF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F85E6420D9AB55004FFDF3 /* AppDelegate.swift */; };
 		16F85E6720D9AB55004FFDF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F85E6620D9AB55004FFDF3 /* ViewController.swift */; };
 		16F85E6A20D9AB55004FFDF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16F85E6820D9AB55004FFDF3 /* Main.storyboard */; };
-		16F85E6D20D9AB55004FFDF3 /* alarm_example.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16F85E6B20D9AB55004FFDF3 /* alarm_example.xcdatamodeld */; };
 		16F85E6F20D9AB57004FFDF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16F85E6E20D9AB57004FFDF3 /* Assets.xcassets */; };
 		16F85E7220D9AB57004FFDF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16F85E7020D9AB57004FFDF3 /* LaunchScreen.storyboard */; };
 		16F85E7C20D9ACEC004FFDF3 /* singing-bowl-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 16F85E7B20D9ACEC004FFDF3 /* singing-bowl-1.mp3 */; };
@@ -24,7 +23,6 @@
 		16F85E6420D9AB55004FFDF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		16F85E6620D9AB55004FFDF3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		16F85E6920D9AB55004FFDF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		16F85E6C20D9AB55004FFDF3 /* alarm_example.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = alarm_example.xcdatamodel; sourceTree = "<group>"; };
 		16F85E6E20D9AB57004FFDF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		16F85E7120D9AB57004FFDF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		16F85E7320D9AB57004FFDF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -70,7 +68,6 @@
 				16F85E7B20D9ACEC004FFDF3 /* singing-bowl-1.mp3 */,
 				16F85E7320D9AB57004FFDF3 /* Info.plist */,
 				16F85E7D20DAFF1A004FFDF3 /* 1-minute-silence.mp3 */,
-				16F85E6B20D9AB55004FFDF3 /* alarm_example.xcdatamodeld */,
 				16450C7D20ECAA0000E7CBA5 /* AlarmClock.swift */,
 			);
 			path = "alarm-example";
@@ -156,7 +153,6 @@
 			files = (
 				16450C7E20ECAA0000E7CBA5 /* AlarmClock.swift in Sources */,
 				16F85E6720D9AB55004FFDF3 /* ViewController.swift in Sources */,
-				16F85E6D20D9AB55004FFDF3 /* alarm_example.xcdatamodeld in Sources */,
 				16F85E6520D9AB55004FFDF3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,19 +351,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		16F85E6B20D9AB55004FFDF3 /* alarm_example.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				16F85E6C20D9AB55004FFDF3 /* alarm_example.xcdatamodel */,
-			);
-			currentVersion = 16F85E6C20D9AB55004FFDF3 /* alarm_example.xcdatamodel */;
-			path = alarm_example.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 16F85E5920D9AB55004FFDF3 /* Project object */;
 }
