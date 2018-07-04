@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="alarm_example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="odo-Q3-uJt">
+                                <rect key="frame" x="162" y="477.5" width="50" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Start"/>
+                                <connections>
+                                    <action selector="startAlarm:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uk6-oi-TgU"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1:0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3jU-ZH-Dqn">
+                                <rect key="frame" x="122.5" y="310" width="130" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="130" id="goS-cf-iVT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HJu-Mv-sH4" userLabel="Pause Button">
+                                <rect key="frame" x="155.5" y="477.5" width="63" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Pause"/>
+                                <connections>
+                                    <action selector="pauseAlarm:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eaH-fZ-Sp0"/>
+                                </connections>
+                            </button>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="agO-ET-I0y">
+                                <rect key="frame" x="0.0" y="30.5" width="375" height="216"/>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DaX-T9-6kS" userLabel="Cancel Button">
+                                <rect key="frame" x="290" y="605" width="56" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelAlarm:" destination="BYZ-38-t0r" eventType="touchUpInside" id="moV-Xw-F3r"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="odo-Q3-uJt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1ND-az-S6R"/>
+                            <constraint firstItem="agO-ET-I0y" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="4hK-xu-kA9"/>
+                            <constraint firstItem="HJu-Mv-sH4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6aA-nI-eWt"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DaX-T9-6kS" secondAttribute="trailing" constant="29" id="9bQ-3n-0oT"/>
+                            <constraint firstItem="3jU-ZH-Dqn" firstAttribute="top" secondItem="agO-ET-I0y" secondAttribute="bottom" constant="63" id="Aqo-Kj-nOP"/>
+                            <constraint firstItem="3jU-ZH-Dqn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="AvL-2T-2ep"/>
+                            <constraint firstItem="3jU-ZH-Dqn" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="E6Q-s1-by3"/>
+                            <constraint firstItem="agO-ET-I0y" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Ul4-yL-NtK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="DaX-T9-6kS" secondAttribute="bottom" constant="28" id="aFa-Vi-C4g"/>
+                            <constraint firstItem="odo-Q3-uJt" firstAttribute="top" secondItem="3jU-ZH-Dqn" secondAttribute="bottom" constant="120" id="bgg-gZ-CV9"/>
+                            <constraint firstItem="HJu-Mv-sH4" firstAttribute="top" secondItem="3jU-ZH-Dqn" secondAttribute="bottom" constant="120" id="c3n-Ry-TjP"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="DaX-T9-6kS" id="0qE-B3-gnn"/>
+                        <outlet property="pickerView" destination="agO-ET-I0y" id="ZN0-gc-hOy"/>
+                        <outlet property="startButton" destination="odo-Q3-uJt" id="t7q-cf-P3t"/>
+                        <outlet property="stopButton" destination="HJu-Mv-sH4" id="NO0-3M-0EV"/>
+                        <outlet property="timeLabel" destination="3jU-ZH-Dqn" id="IvX-Dw-cWs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-79.200000000000003" y="133.5832083958021"/>
+        </scene>
+    </scenes>
+</document>
