@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		16450C7E20ECAA0000E7CBA5 /* AlarmClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16450C7D20ECAA0000E7CBA5 /* AlarmClock.swift */; };
+		16450C7E20ECAA0000E7CBA5 /* AmbientSoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16450C7D20ECAA0000E7CBA5 /* AmbientSoundPlayer.swift */; };
 		16F85E6520D9AB55004FFDF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F85E6420D9AB55004FFDF3 /* AppDelegate.swift */; };
 		16F85E6720D9AB55004FFDF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F85E6620D9AB55004FFDF3 /* ViewController.swift */; };
 		16F85E6A20D9AB55004FFDF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16F85E6820D9AB55004FFDF3 /* Main.storyboard */; };
@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		16450C7D20ECAA0000E7CBA5 /* AlarmClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmClock.swift; sourceTree = "<group>"; };
+		16450C7D20ECAA0000E7CBA5 /* AmbientSoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmbientSoundPlayer.swift; sourceTree = "<group>"; };
 		16F85E6120D9AB55004FFDF3 /* alarm-example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alarm-example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F85E6420D9AB55004FFDF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		16F85E6620D9AB55004FFDF3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -68,7 +68,7 @@
 				16F85E7B20D9ACEC004FFDF3 /* singing-bowl-1.mp3 */,
 				16F85E7320D9AB57004FFDF3 /* Info.plist */,
 				16F85E7D20DAFF1A004FFDF3 /* 1-minute-silence.mp3 */,
-				16450C7D20ECAA0000E7CBA5 /* AlarmClock.swift */,
+				16450C7D20ECAA0000E7CBA5 /* AmbientSoundPlayer.swift */,
 			);
 			path = "alarm-example";
 			sourceTree = "<group>";
@@ -151,7 +151,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16450C7E20ECAA0000E7CBA5 /* AlarmClock.swift in Sources */,
+				16450C7E20ECAA0000E7CBA5 /* AmbientSoundPlayer.swift in Sources */,
 				16F85E6720D9AB55004FFDF3 /* ViewController.swift in Sources */,
 				16F85E6520D9AB55004FFDF3 /* AppDelegate.swift in Sources */,
 			);

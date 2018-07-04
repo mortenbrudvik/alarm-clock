@@ -17,12 +17,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     
     var minutes: [Int] = []
-    var secondsCountdown = 60
-    var totalPlayTimeInSeconds = 0
+    var seconds = 60
+    var timer = Timer()
     
-    var observerToken: Any?
+    var isTimerRunning = false
+    var isPaused = false
     
-    var audioPlayer: AVQueuePlayer!
+    var _player: AmbientSoundPlayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,58 +36,27 @@ class ViewController: UIViewController {
         self.timeLabel.text = "\(self.timeString(seconds: 60))"
         
         minutes.append(contentsOf: (1...60).map{$0})
-
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-        }
-        catch {
-            print(error)
-        }
     }
     
-    func createPlayer(){
-        audioPlayer = AVQueuePlayer(items: createPlayList())
-        audioPlayer.actionAtItemEnd = .advance
-        observerToken = audioPlayer!.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, 1), queue: DispatchQueue.main) { (CMTime) -> Void in
-            if self.audioPlayer!.currentItem?.status == .readyToPlay {
-                let seconds : Int = Int(CMTimeGetSeconds(self.audioPlayer!.currentTime()));
-                
-                let secondsTotal = self.totalPlayTimeInSeconds + seconds
-                
-                let timeText = "\(self.timeString(seconds: secondsTotal))"
-                print(timeText)
-                if secondsTotal <= self.secondsCountdown {
-                    self.timeLabel.text = "\(self.timeString(seconds: self.secondsCountdown - secondsTotal))"
-                    
-                    if seconds == 60 {
-                        self.totalPlayTimeInSeconds = self.totalPlayTimeInSeconds + 60
-                        self.audioPlayer.advanceToNextItem()
-                    }
-                }
-                if secondsTotal > self.secondsCountdown {
-                    self.startButton.isHidden = true
-                    self.stopButton.isHidden = true
-                    self.cancelButton.isHidden = false
-                }
-            }
-        }
+    func runTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+        isTimerRunning = true
     }
     
-    func removePlayer() {
-
-        if let ob = self.observerToken {
-            audioPlayer.removeTimeObserver(ob)
+    @objc func updateTimer() {
+        if seconds < 1 {
+            timer.invalidate()
+            playSound()
+            startButton.isHidden = true
+            stopButton.isHidden = true
+            cancelButton.isHidden = false
+            cancelButton.setTitle("Reset", for: .normal)
+        } else {
+            seconds -= 1
+            
+            self.timeLabel.text = "\(self.timeString(seconds: seconds))"
         }
-        audioPlayer.removeAllItems()
-    }
-    
-    private func createPlayList() -> [AVPlayerItem] {
-       var songNames = [String](repeating: "1-minute-silence", count: selectedTimeInMinutes())
-        songNames.append("singing-bowl-1")
-        return songNames.map {
-            let url = Bundle.main.url(forResource: $0, withExtension: "mp3")!
-            return AVPlayerItem(url: url)
-        }
+        print(seconds)
     }
 
     private func selectedTimeInMinutes() -> Int {
@@ -102,39 +72,47 @@ class ViewController: UIViewController {
 
     @IBAction func startAlarm(_ sender: UIButton) {
         startButton.isHidden = true
-        startButton.setTitle("Continue", for: .normal)
         stopButton.isHidden = false
         cancelButton.isHidden = true
         
-        if !pickerView.isHidden {
-            secondsCountdown = 60 * selectedTimeInMinutes()
-            createPlayer()
+        if isTimerRunning == false {
+            runTimer()
+            seconds = 60 * selectedTimeInMinutes()
             
             pickerView.isHidden = true
+            _player = AmbientSoundPlayer(minutes: selectedTimeInMinutes())
+            _player.play()
         }
         
-        audioPlayer.play()
     }
     
     @IBAction func pauseAlarm(_ sender: UIButton) {
-        startButton.isHidden = false
-        stopButton.isHidden = true
-        cancelButton.isHidden = false
-        
-        audioPlayer.pause()
+        if !isPaused {
+            cancelButton.isHidden = false
+            isPaused =  true
+            stopButton.setTitle("Continue", for: .normal)
+            timer.invalidate()
+            isTimerRunning = false
+            _player.pause()
+        } else {
+            cancelButton.isHidden = true
+            isPaused =  false
+            stopButton.setTitle("Pause", for: .normal)
+            runTimer()
+            isTimerRunning = true
+            _player.play()
+        }
     }
     
     @IBAction func cancelAlarm(_ sender: UIButton) {
-        totalPlayTimeInSeconds = 0
         startButton.isHidden = false
-        startButton.setTitle("Start", for: .normal)
+        stopButton.setTitle("Pause", for: .normal)
         stopButton.isHidden = true
         cancelButton.isHidden = true
+        cancelButton.setTitle("Cancel", for: .normal)
         pickerView.isHidden = false
         timeLabel.text = "\(timeString(minutes: selectedTimeInMinutes()))"
-        audioPlayer.pause()
-        audioPlayer.seek(to: kCMTimeZero)
-        removePlayer()
+        _player.dispose()
     }
     
     func timeString(minutes: Int) -> String {
@@ -150,7 +128,37 @@ class ViewController: UIViewController {
         let seconds = Int(time) % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
+    
+
+    
+    var player: AVAudioPlayer?
+    
+    func playSound() {
+        guard let url = Bundle.main.url(forResource: "singing-bowl-1", withExtension: "mp3") else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            
+            
+            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+            
+            /* iOS 10 and earlier require the following line:
+             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
+            
+            guard let player = player else { return }
+            
+            player.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
 }
+
+
 
 extension ViewController :  UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -184,10 +192,7 @@ extension ViewController :  UIPickerViewDelegate, UIPickerViewDataSource {
         timeLabel.text = "\(timeString(time: TimeInterval(seconds)))"
     }
     
-
-    
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 40
     }
 }
-
