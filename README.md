@@ -1,5 +1,5 @@
 # alarm-clock
 Countdown alarm clock with support for silent mode on iPhone.
 
-![Screenshot](screenshot.png)<!-- .element height="50%" width="50%" -->
+<img src="screenshot.png" width="400" alt="Screenshot"/> 
 
