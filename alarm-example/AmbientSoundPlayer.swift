@@ -30,9 +30,11 @@ class AmbientSoundPlayer {
     }
     
     func dispose() {
-        audioPlayer.pause()
-        audioPlayer.seek(to: kCMTimeZero)
-        removePlayer()
+        if audioPlayer != nil {
+            audioPlayer.pause()
+            audioPlayer.seek(to: kCMTimeZero)
+            removePlayer()
+        }
     }
     
     func pause() {

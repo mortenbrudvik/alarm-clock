@@ -8,17 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		16450C7E20ECAA0000E7CBA5 /* AmbientSoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16450C7D20ECAA0000E7CBA5 /* AmbientSoundPlayer.swift */; };
+		16450C8920EE19CD00E7CBA5 /* alarm-clock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 16450C8820EE19CD00E7CBA5 /* alarm-clock.mp3 */; };
 		16F85E6520D9AB55004FFDF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F85E6420D9AB55004FFDF3 /* AppDelegate.swift */; };
 		16F85E6720D9AB55004FFDF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F85E6620D9AB55004FFDF3 /* ViewController.swift */; };
 		16F85E6A20D9AB55004FFDF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16F85E6820D9AB55004FFDF3 /* Main.storyboard */; };
 		16F85E6F20D9AB57004FFDF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16F85E6E20D9AB57004FFDF3 /* Assets.xcassets */; };
 		16F85E7220D9AB57004FFDF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16F85E7020D9AB57004FFDF3 /* LaunchScreen.storyboard */; };
-		16F85E7C20D9ACEC004FFDF3 /* singing-bowl-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 16F85E7B20D9ACEC004FFDF3 /* singing-bowl-1.mp3 */; };
 		16F85E7E20DAFF1A004FFDF3 /* 1-minute-silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 16F85E7D20DAFF1A004FFDF3 /* 1-minute-silence.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		16450C7D20ECAA0000E7CBA5 /* AmbientSoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmbientSoundPlayer.swift; sourceTree = "<group>"; };
+		16450C8820EE19CD00E7CBA5 /* alarm-clock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "alarm-clock.mp3"; sourceTree = "<group>"; };
 		16F85E6120D9AB55004FFDF3 /* alarm-example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alarm-example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F85E6420D9AB55004FFDF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		16F85E6620D9AB55004FFDF3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -26,7 +27,6 @@
 		16F85E6E20D9AB57004FFDF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		16F85E7120D9AB57004FFDF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		16F85E7320D9AB57004FFDF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		16F85E7B20D9ACEC004FFDF3 /* singing-bowl-1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "singing-bowl-1.mp3"; sourceTree = "<group>"; };
 		16F85E7D20DAFF1A004FFDF3 /* 1-minute-silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "1-minute-silence.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,7 +65,7 @@
 				16F85E6820D9AB55004FFDF3 /* Main.storyboard */,
 				16F85E6E20D9AB57004FFDF3 /* Assets.xcassets */,
 				16F85E7020D9AB57004FFDF3 /* LaunchScreen.storyboard */,
-				16F85E7B20D9ACEC004FFDF3 /* singing-bowl-1.mp3 */,
+				16450C8820EE19CD00E7CBA5 /* alarm-clock.mp3 */,
 				16F85E7320D9AB57004FFDF3 /* Info.plist */,
 				16F85E7D20DAFF1A004FFDF3 /* 1-minute-silence.mp3 */,
 				16450C7D20ECAA0000E7CBA5 /* AmbientSoundPlayer.swift */,
@@ -137,8 +137,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				16F85E7220D9AB57004FFDF3 /* LaunchScreen.storyboard in Resources */,
+				16450C8920EE19CD00E7CBA5 /* alarm-clock.mp3 in Resources */,
 				16F85E7E20DAFF1A004FFDF3 /* 1-minute-silence.mp3 in Resources */,
-				16F85E7C20D9ACEC004FFDF3 /* singing-bowl-1.mp3 in Resources */,
 				16F85E6F20D9AB57004FFDF3 /* Assets.xcassets in Resources */,
 				16F85E6A20D9AB55004FFDF3 /* Main.storyboard in Resources */,
 			);

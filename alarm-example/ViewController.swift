@@ -101,7 +101,7 @@ class ViewController: UIViewController {
     var player: AVAudioPlayer?
 
     func playAlarm() {
-        guard let url = Bundle.main.url(forResource: "singing-bowl-1", withExtension: "mp3") else { return }
+        guard let url = Bundle.main.url(forResource: "alarm-clock", withExtension: "mp3") else { return }
 
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
