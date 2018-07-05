@@ -11,9 +11,11 @@ import AVFoundation
 
 class AmbientSoundPlayer {
     
-    var _audioPlayer: AVQueuePlayer!
-    var _observerToken: Any?
-    var _minutes: Int
+    var audioPlayer: AVQueuePlayer!
+    var observerToken: Any?
+    var minutes: Int
+    
+    var onPlaying: ((_ playItem: AmbientPlayItem)->())?
     
     init(minutes: Int) {
         do {
@@ -23,52 +25,62 @@ class AmbientSoundPlayer {
             print(error)
         }
         
-        _minutes = minutes
+        self.minutes = minutes
         createPlayer(minutes)
     }
     
     func dispose() {
-        _audioPlayer.pause()
-        _audioPlayer.seek(to: kCMTimeZero)
+        audioPlayer.pause()
+        audioPlayer.seek(to: kCMTimeZero)
         removePlayer()
     }
     
     func pause() {
-        _audioPlayer.pause()
+        audioPlayer.pause()
     }
     
     func play() {
-        _audioPlayer.play()
+        audioPlayer.play()
     }
     
     func createPlayer(_ minutes: Int){
-        _audioPlayer = AVQueuePlayer(items: createPlayList(minutes))
-        _audioPlayer.actionAtItemEnd = .advance
-        _observerToken = _audioPlayer!.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, 1), queue: DispatchQueue.main) { (CMTime) -> Void in
-            if self._audioPlayer!.currentItem?.status == .readyToPlay {
+        audioPlayer = AVQueuePlayer(items: createPlayList(minutes))
+        audioPlayer.actionAtItemEnd = .advance
+        observerToken = audioPlayer!.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, 1), queue: DispatchQueue.main) { (CMTime) -> Void in
+            if self.audioPlayer!.currentItem?.status == .readyToPlay {
                 
-                let seconds : Int = Int(CMTimeGetSeconds(self._audioPlayer!.currentTime()));
-                print("Current audio item - time: \(seconds)")
+                let seconds : Int = Int(CMTimeGetSeconds(self.audioPlayer!.currentTime()));
+                let item = AmbientPlayItem(self.audioPlayer!.currentItem!, seconds)
+                self.onPlaying?(item)
             }
-                
         }
     }
     
     func removePlayer() {
         
-        if let ob = _observerToken {
-            _audioPlayer.removeTimeObserver(ob)
+        if let ob = observerToken {
+            audioPlayer.removeTimeObserver(ob)
         }
-        _audioPlayer.removeAllItems()
-        _audioPlayer = nil
+        audioPlayer.removeAllItems()
+        audioPlayer = nil
     }
     
     private func createPlayList(_ minutes: Int) -> [AVPlayerItem] {
-        var songNames = [String](repeating: "1-minute-silence", count: minutes)
-        //songNames.append("singing-bowl-1")
+        let songNames = [String](repeating: "1-minute-silence", count: minutes)
+        
         return songNames.map {
             let url = Bundle.main.url(forResource: $0, withExtension: "mp3")!
             return AVPlayerItem(url: url)
         }
     }
+}
+
+class AmbientPlayItem {
+    init(_ item: AVPlayerItem, _ seconds: Int) {
+        playTimeInSeconds = seconds
+        let assetURL = item.asset as! AVURLAsset
+        name = assetURL.url.lastPathComponent
+    }
+    let playTimeInSeconds: Int
+    let name: String
 }

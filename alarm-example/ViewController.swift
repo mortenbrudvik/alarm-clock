@@ -18,12 +18,12 @@ class ViewController: UIViewController {
     
     var minutes: [Int] = []
     var seconds = 60
-    var timer = Timer()
+    var timer: Timer! = nil
     
     var isTimerRunning = false
     var isPaused = false
     
-    var _player: AmbientSoundPlayer!
+    var ambientPlayer: AmbientSoundPlayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         pickerView.delegate = self
         pickerView.dataSource = self
         
-        self.timeLabel.text = "\(self.timeString(seconds: 60))"
+        self.timeLabel.text = "\(self.timeString(minutes: selectedTimeInMinutes()))"
         
         minutes.append(contentsOf: (1...60).map{$0})
     }
@@ -45,12 +45,7 @@ class ViewController: UIViewController {
     
     @objc func updateTimer() {
         if seconds < 1 {
-            timer.invalidate()
-            playSound()
-            startButton.isHidden = true
-            stopButton.isHidden = true
-            cancelButton.isHidden = false
-            cancelButton.setTitle("Reset", for: .normal)
+            triggerAlarm()
         } else {
             seconds -= 1
             
@@ -58,61 +53,35 @@ class ViewController: UIViewController {
         }
         print(seconds)
     }
+    
+    func stopTimer() {
+        isTimerRunning = false
+        if timer != nil {
+            timer.invalidate()
+            timer = nil
+        }
+    }
 
     private func selectedTimeInMinutes() -> Int {
         let index = pickerView.selectedRow(inComponent: 0)
     
         return index + 1
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
     @IBAction func startAlarm(_ sender: UIButton) {
-        startButton.isHidden = true
-        stopButton.isHidden = false
-        cancelButton.isHidden = true
-        
-        if isTimerRunning == false {
-            runTimer()
-            seconds = 60 * selectedTimeInMinutes()
-            
-            pickerView.isHidden = true
-            _player = AmbientSoundPlayer(minutes: selectedTimeInMinutes())
-            _player.play()
-        }
-        
+        startCountdown()
     }
     
     @IBAction func pauseAlarm(_ sender: UIButton) {
-        if !isPaused {
-            cancelButton.isHidden = false
-            isPaused =  true
-            stopButton.setTitle("Continue", for: .normal)
-            timer.invalidate()
-            isTimerRunning = false
-            _player.pause()
+        if isPaused {
+            unPause()
         } else {
-            cancelButton.isHidden = true
-            isPaused =  false
-            stopButton.setTitle("Pause", for: .normal)
-            runTimer()
-            isTimerRunning = true
-            _player.play()
+            pause()
         }
     }
     
     @IBAction func cancelAlarm(_ sender: UIButton) {
-        startButton.isHidden = false
-        stopButton.setTitle("Pause", for: .normal)
-        stopButton.isHidden = true
-        cancelButton.isHidden = true
-        cancelButton.setTitle("Cancel", for: .normal)
-        pickerView.isHidden = false
-        timeLabel.text = "\(timeString(minutes: selectedTimeInMinutes()))"
-        _player.dispose()
+        reset()
     }
     
     func timeString(minutes: Int) -> String {
@@ -129,35 +98,79 @@ class ViewController: UIViewController {
         return String(format: "%02d:%02d", minutes, seconds)
     }
     
-
-    
     var player: AVAudioPlayer?
-    
-    func playSound() {
+
+    func playAlarm() {
         guard let url = Bundle.main.url(forResource: "singing-bowl-1", withExtension: "mp3") else { return }
-        
+
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             try AVAudioSession.sharedInstance().setActive(true)
-            
-            
-            
-            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
-            
-            /* iOS 10 and earlier require the following line:
-             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
-            
             guard let player = player else { return }
-            
+
             player.play()
-            
+
         } catch let error {
             print(error.localizedDescription)
         }
     }
 }
 
+extension ViewController : CountDownClock {
+    func startCountdown() {
+        startButton.isHidden = true
+        stopButton.isHidden = false
+        cancelButton.isHidden = true
+        pickerView.isHidden = true
+
+        runTimer()
+        seconds = 60 * selectedTimeInMinutes()
+        
+        ambientPlayer = AmbientSoundPlayer(minutes: selectedTimeInMinutes())
+        ambientPlayer.play()
+    }
+    
+    func reset() {
+        startButton.isHidden = false
+        stopButton.setTitle("Pause", for: .normal)
+        stopButton.isHidden = true
+        cancelButton.isHidden = true
+        cancelButton.setTitle("Cancel", for: .normal)
+        pickerView.isHidden = false
+        timeLabel.text = "\(timeString(minutes: selectedTimeInMinutes()))"
+        ambientPlayer.dispose()
+        stopTimer()
+        isPaused = false
+    }
+    
+    func triggerAlarm() {
+        startButton.isHidden = true
+        stopButton.isHidden = true
+        cancelButton.isHidden = false
+        cancelButton.setTitle("Reset", for: .normal)
+        isPaused = false
+        stopTimer()
+        ambientPlayer.dispose()
+        playAlarm()
+    }
+    
+    func pause() {
+        cancelButton.isHidden = false
+        stopButton.setTitle("Continue", for: .normal)
+        isPaused =  true
+        stopTimer()
+        ambientPlayer.pause()
+    }
+    
+    func unPause() {
+        cancelButton.isHidden = true
+        stopButton.setTitle("Pause", for: .normal)
+        isPaused =  false
+        runTimer()
+        ambientPlayer.play()
+    }
+}
 
 
 extension ViewController :  UIPickerViewDelegate, UIPickerViewDataSource {
@@ -195,4 +208,12 @@ extension ViewController :  UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 40
     }
+}
+
+protocol CountDownClock {
+    func pause()
+    func unPause()
+    func triggerAlarm()
+    func startCountdown()
+    func reset()
 }
